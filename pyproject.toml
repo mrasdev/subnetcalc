@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "subnetcalc"
+dynamic = ["version"]          # Version kommt aus dem git-Tag
+description = "Kleiner IPv4-Subnetzrechner fuer die Kommandozeile"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "ruff", "pre-commit", "build"]
+
+[project.scripts]
+subnetcalc = "subnetcalc.cli:main"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=subnetcalc --cov-report=term-missing --cov-fail-under=80"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
